@@ -1,0 +1,18 @@
+on chat:
+    set {_message} to message
+    set {_filtered} to replace all "4" with "a" in {_message}
+    set {_filtered} to replace all "@" with "a" in {_filtered}
+    set {_filtered} to replace all "0" with "o" in {_filtered}
+    set {_filtered} to replace all "3" with "e" in {_filtered}
+    set {_filtered} to replace all "1" with "i" in {_filtered}
+    set {_filtered} to replace all "5" with "s" in {_filtered} # Add more filters if needed
+    
+    set {_badwords::*} to "fuck", "bitch", "asshole", "dumbass", "shit", "bastard", "cunt", "motherfucker", "dick", "pussy", "slut", "whore", "cock", "nigger", "faggot" # Add more words if needed
+    
+    loop {_badwords::*}:
+        if {_filtered} contains loop-value:
+            cancel event
+            send "&c[AutoMute] You have been muted for 30 minutes for using inappropriate language!" to player
+            execute console command "mute %player% 30m [AutoMute]"
+            broadcast "&7[AutoMute] %player% has been muted for 30 minutes for using inappropriate language."
+            stop
